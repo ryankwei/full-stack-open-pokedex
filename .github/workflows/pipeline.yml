@@ -52,8 +52,11 @@ jobs:
         with:
           status: ${{ job.status }}
           if_mention: 'success,failure'
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        if: ${{ github.event_name == 'push' }}
         # a_test_job:
   #   runs-on: ubuntu-18.04
   #   steps:
